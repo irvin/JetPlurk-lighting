@@ -9,13 +9,17 @@ var loginStr = {
 jetpack.future.import("storage.simple");
 var myStorage = jetpack.storage.simple;
 */
-var sliderObj = null; // Save slide object
+var myStorage = {
+	ReadOffset: null
+};
+
+var sliderObj = $(document); // Save slide object
 var NewOffset = Date.parse(new Date()); // To remember latest refresh time
 if (myStorage.ReadOffset == null) {
 	myStorage.ReadOffset = Date.parse("January 1, 1975 00:00:00");
 }
 var JetPlurkVer = '030';
-// var ReadOffset = myStorage.ReadOffset; // Latest read plurk post time
+var ReadOffset = myStorage.ReadOffset; // Latest read plurk post time
 var OldOffset = Date.parse(new Date()); // Oldest loaded plurk timestamp
 var filterKind = "filterAll";
 console.log('JetPlurk ' + JetPlurkVer + ' Start: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
@@ -29,10 +33,9 @@ jetpack.slideBar.append({
 	html: basehtml,
 */
 
+sliderObj.ready(function() {  
 
-function onReady() {
-	// When sidebar ready, preform reFreshPlurk()
-	sliderObj = document;
+ 	// When sidebar ready, preform reFreshPlurk()
 	console.log(sliderObj);
 
 	// Show version of JetPlurk
@@ -69,7 +72,7 @@ function onReady() {
 		filterKind = $(this).attr("id");
 		reFreshPlurk();
 	});
-};
+});
 
 function reFreshPlurk() {
 	// When reFreshPlurk, preform login and get newest plurk
