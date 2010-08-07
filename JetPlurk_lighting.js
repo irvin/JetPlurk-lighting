@@ -1,14 +1,9 @@
 var loginStr = {
-	username: 'irvintest',
-	password: '1234',
+	username: 'irvinfly',
+	password: 'alsk',
 	api_key: '8Sq7fQo7HA9MfGDiowDkMcRUYcsMk86t'
 };
 
-
-/*
-jetpack.future.import("storage.simple");
-var myStorage = jetpack.storage.simple;
-*/
 var myStorage = {
 	ReadOffset: null
 };
@@ -24,40 +19,30 @@ var OldOffset = Date.parse(new Date()); // Oldest loaded plurk timestamp
 var filterKind = "filterAll";
 console.log('JetPlurk ' + JetPlurkVer + ' Start: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
 
-/*
-jetpack.future.import('slideBar');
-jetpack.slideBar.append({
-	icon: "http://www.plurk.com/favicon.ico",
-	width: 300,
-	persist: true,
-	html: basehtml,
-*/
-
 sliderObj.ready(function() {  
-
- 	// When sidebar ready, preform reFreshPlurk()
-	console.log(sliderObj);
-
+	// When document ready, preform reFreshPlurk()
+	reFreshPlurk();
+	
 	// Show version of JetPlurk
 	var content = "<div id='jetplurkmeta'>" + JetPlurkVer + "</div>";
-	$(sliderObj).find('div#jetplurkmeta').replaceWith(content);
+	sliderObj.find('div#jetplurkmeta').replaceWith(content);
 
 	// Add click event listener on loadmore button
-	$(sliderObj).find('#loadmore').click(function(event) {
+	sliderObj.find('#loadmore').click(function(event) {
 		loadMorePlurk();
 		event.preventDefault();
 		event.stopPropagation(); // Stop event bubble
 	});
 
 	// Add click event listener on "Plurk" button for send plurk
-	$(sliderObj).find("input.button").click(function(event) {
+	sliderObj.find("input.button").click(function(event) {
 		sendPlurk();
 		event.preventDefault();
 		event.stopPropagation(); // Stop event bubble
 	});
 
 	// textarea auto resize
-	$(sliderObj).find("#sendform textarea.txtarea").keypress(function (event) {
+	sliderObj.find("#sendform textarea.txtarea").keypress(function (event) {
 		var len = this.value.length + this.value.split(/[\x20-\x7e]/).join("").length;
 		var H = Math.max(Math.ceil(len / 24) * 25, 25);
 		$(this).css("height", H);
@@ -66,7 +51,7 @@ sliderObj.ready(function() {
 	});
 	
 	// Plurk filter
-	$(sliderObj).find("#filterPlurk div").click(function () {
+	sliderObj.find("#filterPlurk div").click(function () {
 		$(sliderObj).find("#filterPlurk div").removeClass("select");
 		$(this).addClass("select");
 		filterKind = $(this).attr("id");
