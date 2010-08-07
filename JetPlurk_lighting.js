@@ -1,6 +1,6 @@
 var loginStr = {
-	username: 'irvinfly',
-	password: 'alsk',
+	username: 'irvintest',
+	password: '1234',
 	api_key: '8Sq7fQo7HA9MfGDiowDkMcRUYcsMk86t'
 };
 
@@ -64,7 +64,7 @@ function reFreshPlurk() {
 
 	OldOffset = Date.parse(new Date());
 	$.ajax({
-		url: "http://www.plurk.com/API/Users/login",
+		url: "https://www.plurk.com/API/Users/login",
 		data: loginStr,
 
 		// When login success, throw the newest plurk come with login
