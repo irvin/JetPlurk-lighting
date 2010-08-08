@@ -1,6 +1,7 @@
 var loginStr = {
 	username: 'irvintest',
 	password: '1234',
+	api_key: '8Sq7fQo7HA9MfGDiowDkMcRUYcsMk86t'
 };
 
 var myStorage = {
@@ -294,8 +295,7 @@ function ShowNewPlurk(jsObject) {
 			content += "<responseNum>" + response_count + "</responseNum>";
 		}
 		content += "</span></msg>";
-		
-		console.log('read ' + read + ' response_count ' + response_count + ' responses_seen ' + responses_seen + ' ' + content);
+		// console.log('read ' + read + ' response_count ' + response_count + ' responses_seen ' + responses_seen + ' ' + content);
 		
 		sliderObj.find("msgs").append(content);
 		OldOffset = Date.parse(postedtime); // Remember oldest loaded plurk time
@@ -312,7 +312,7 @@ function ShowNewPlurk(jsObject) {
 		).click(function(event) {
 			// Add click event listener on each msg
 			// Click msg to show response form & responses
-			if (event.originalTarget.nodeName == "A") return;
+			// if (event.originalTarget.nodeName == "A") return;
 			MsgClick($(this));
 		})
 		.attr('content_raw', jsObject.plurks[i].content_raw)
@@ -401,7 +401,7 @@ function ShowNewPlurk(jsObject) {
 	$(sliderObj.contentDocument).find('msg content').css("line-height",set.fontsize/10*1.1 +"em");
 	*/
 }
-/*
+
 function MsgHover(hoverMsg) {
 	// Called from ShowNewPlurk(jsObject)
 	var selectPlurkID = parseInt(hoverMsg.attr("id"));
@@ -547,10 +547,10 @@ function MsgShowResponse(clickMsg, selectPlurkID) {
 					return;
 				});
 			});
-			
+			/*
 			$(clickMsg).find('response').css("font-size",set.fontsize/10.5 +"em");
 			$(clickMsg).find('response').css("line-height",set.fontsize/10.5 * 1.1 +"em");
-
+			*/
 			// console.log($(clickMsg).html());
 		},
 		error: function(xhr, textStatus, errorThrown) {
@@ -558,6 +558,8 @@ function MsgShowResponse(clickMsg, selectPlurkID) {
 		}
 	});
 }
+
+/*
 
 function SubmitResponse(clickMsg, selectPlurkID, response_txt) {
 	// Called from MsgClick(clickMsg)
