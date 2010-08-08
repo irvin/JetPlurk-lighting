@@ -25,7 +25,7 @@ sliderObj.ready(function() {
 	// Show version of JetPlurk
 	var content = "<div id='jetplurkmeta'>" + JetPlurkVer + "</div>";
 	sliderObj.find('div#jetplurkmeta').replaceWith(content);
-
+/*
 	// Add click event listener on loadmore button
 	sliderObj.find('#loadmore').click(function(event) {
 		loadMorePlurk();
@@ -56,6 +56,7 @@ sliderObj.ready(function() {
 		filterKind = $(this).attr("id");
 		reFreshPlurk();
 	});
+*/
 });
 
 function reFreshPlurk() {
@@ -71,13 +72,12 @@ function reFreshPlurk() {
 		function(jsObject) {	
 			console.log(jsObject)
 
-/*
 
 			// Wipe out old msg
-			$(sliderObj.contentDocument).find("msgs").fadeOut('medium', function() {
+			sliderObj.find("msgs").fadeOut('medium', function() {
 				$(sliderObj.contentDocument).find("msgs").remove();
 				var content = "<msgs></msgs>";
-				$(sliderObj.contentDocument).find('#loadmore').before(content);
+				sliderObj.find('#loadmore').before(content);
 				// ShowNewPlurk(jsObject);
 				loadMorePlurk();
 			});
@@ -99,9 +99,8 @@ function reFreshPlurk() {
 			}
 
 			var content = "<div id='usermeta'><a href='http://www.plurk.com'><div class='avatar' style='background: url(" + avatarurl + ")'></div></a><span class='displayname'>" + user_displayname + "</span> <span class='karma'>Karma:" + jsObject.user_info.karma + "</span></div>";
-			$(sliderObj.contentDocument).find("#usermeta").replaceWith(content);
+			sliderObj.find("#usermeta").replaceWith(content);
 			
-			*/
 		},                                
 		function(xhr, textStatus, errorThrown) {
 			// Login error
@@ -109,7 +108,7 @@ function reFreshPlurk() {
 		}                                    
 	);
 };
-
+/*
 function sendPlurk() {
 	var sendFormObj = $(sliderObj.contentDocument).find('form#sendform');
 
@@ -135,7 +134,7 @@ function sendPlurk() {
 		
 	}
 }
-
+*/
 function ISODateString(d) {
 	// ISO 8601 formatted dates example
 	// https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date
@@ -177,30 +176,28 @@ function postTime(d) {
 
 function loadMorePlurk() {
 	// When loadMorePlurk, get old plurks from OldOffset
-	var objData = {
-		url: "http://www.plurk.com/API/Timeline/getPlurks",
-		data: ({
-			'api_key': loginStr.api_key,
-			// offset in ISO 8601 format
-			'offset': ISODateString(new Date(OldOffset))
-		}),
-		success: function(json) {
+	API.call('/Timeline/getPlurks', {
+			offset: ISODateString(new Date(OldOffset)),
+		},
+		function(jsObject) {	// Success
 			// Throw the loaded plurk to show plurk function
-			var jsObject = JSON.parse(json);
+			// var jsObject = JSON.parse(json);
 			// correct plurk api bugs
 			jsObject.plurks_users = jsObject.plurk_users;
 			// console.log(json)
 			ShowNewPlurk(jsObject);
 			console.log('JetPlurk Load More: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
-		},
-		error: function(xhr, textStatus, errorThrown) {
+		},                                
+		function(xhr, textStatus, errorThrown) {
 			// Login error
-			console.log('Load More error: ' + xhr.status + ' ' + xhr.responseText);
+			console.log('Login error: ' + xhr.status + ' ' + xhr.responseText);
 		}
-	};
+	);
+	
+	/*
 	switch (filterKind) {
 		case "filterUnRead":
-			objData.url = "http://www.plurk.com/API/Timeline/getUnreadPlurks";
+			objData.url = "https://www.plurk.com/API/Timeline/getUnreadPlurks";
 			objData.data["limit"] = 20;
 			break;
 		case "filterPrivate":
@@ -214,6 +211,7 @@ function loadMorePlurk() {
 			break;
 	}
 	$.ajax(objData);
+	*/
 };
 
 function ShowNewPlurk(jsObject) {
@@ -296,12 +294,14 @@ function ShowNewPlurk(jsObject) {
 			content += "<responseNum>" + response_count + "</responseNum>";
 		}
 		content += "</span></msg>";
-		// console.log('read ' + read + ' response_count ' + response_count + ' responses_seen ' + responses_seen + ' ' + content);
-		$(sliderObj.contentDocument).find("msgs").append(content);
+		
+		console.log('read ' + read + ' response_count ' + response_count + ' responses_seen ' + responses_seen + ' ' + content);
+		
+		sliderObj.find("msgs").append(content);
 		OldOffset = Date.parse(postedtime); // Remember oldest loaded plurk time
 
 		// Add hover event listener on each msg
-		$(sliderObj.contentDocument).find("msg:last")
+		sliderObj.find("msg:last")
 		.hover(
 			function() {
 				MsgHover($(this));
@@ -320,7 +320,7 @@ function ShowNewPlurk(jsObject) {
 		.attr('link', 'http://www.plurk.com/p/' + premalink);
 
 		// RePlurk
-		$(sliderObj.contentDocument).find("msg:last a.replurk").click(function(event) {
+		sliderObj.find("msg:last a.replurk").click(function(event) {
 			event.preventDefault();
 			event.stopPropagation(); // Stop event bubble
 
@@ -330,7 +330,7 @@ function ShowNewPlurk(jsObject) {
 		});
 
 		// Mute
-		$(sliderObj.contentDocument).find("msg:last a.mute").click(function(event) {
+		sliderObj.find("msg:last a.mute").click(function(event) {
 			event.preventDefault();
 			event.stopPropagation(); // Stop event bubble
 
@@ -353,7 +353,7 @@ function ShowNewPlurk(jsObject) {
 		});
 
 		// Favorite
-		$(sliderObj.contentDocument).find("msg:last a.like").click(function(event) {
+		sliderObj.find("msg:last a.like").click(function(event) {
 			event.preventDefault();
 			event.stopPropagation(); // Stop event bubble
 
@@ -377,7 +377,7 @@ function ShowNewPlurk(jsObject) {
 		});
 
 		// Re someone:
-		$(sliderObj.contentDocument).find("msg:last span.plurker").click(function (event) {
+		sliderObj.find("msg:last span.plurker").click(function (event) {
 			event.preventDefault();
 			event.stopPropagation(); // Stop event bubble
 
@@ -396,11 +396,12 @@ function ShowNewPlurk(jsObject) {
 	});
 
 	//Set font size of display content
+	/*
 	$(sliderObj.contentDocument).find('msg content').css("font-size",set.fontsize/10 +"em");
 	$(sliderObj.contentDocument).find('msg content').css("line-height",set.fontsize/10*1.1 +"em");
-
+	*/
 }
-
+/*
 function MsgHover(hoverMsg) {
 	// Called from ShowNewPlurk(jsObject)
 	var selectPlurkID = parseInt(hoverMsg.attr("id"));
@@ -597,7 +598,7 @@ function SubmitResponse(clickMsg, selectPlurkID, response_txt) {
 		}
 	});
 }
-
+*/
 function transContent(txt) {
 	return txt.replace(
 		/<a([^>]*)href="([^>"]+)"([^>]*)>([^<]*)<\/a>/ig,
