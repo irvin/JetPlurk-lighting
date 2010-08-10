@@ -17,7 +17,7 @@ var JetPlurkVer = '030';
 var ReadOffset = myStorage.ReadOffset; // Latest read plurk post time
 var OldOffset = Date.parse(new Date()); // Oldest loaded plurk timestamp
 var filterKind = "filterAll";
-console.log('JetPlurk ' + JetPlurkVer + ' Start: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
+//console.log('JetPlurk ' + JetPlurkVer + ' Start: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
 
 sliderObj.ready(function() {  
 	// When document ready, preform reFreshPlurk()
@@ -71,7 +71,7 @@ function reFreshPlurk() {
 			ssl:        true,                                         
 		},                                                            
 		function(jsObject) {	
-			console.log(jsObject)
+			//console.log(jsObject)
 
 
 			// Wipe out old msg
@@ -83,7 +83,7 @@ function reFreshPlurk() {
 				loadMorePlurk();
 			});
 			NewOffset = Date.parse(new Date()); // Remember refresh time
-			console.log('JetPlurk refresh: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
+			//console.log('JetPlurk refresh: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
 
 			// Show user meta
 			var avatarurl = '';
@@ -105,7 +105,7 @@ function reFreshPlurk() {
 		},                                
 		function(xhr, textStatus, errorThrown) {
 			// Login error
-			console.log('Login error: ' + xhr.status + ' ' + xhr.responseText);
+			//console.log('Login error: ' + xhr.status + ' ' + xhr.responseText);
 		}                                    
 	);
 };
@@ -129,7 +129,7 @@ function sendPlurk() {
 				$(sendFormObj).find("textarea").attr('value', "").trigger("keypress");
 			},
 			error: function(xhr, textStatus, errorThrown) {
-				console.log('Plurk error: ' + xhr.status + ' ' + xhr.responseText);
+				//console.log('Plurk error: ' + xhr.status + ' ' + xhr.responseText);
 			}
 		});
 		
@@ -185,13 +185,13 @@ function loadMorePlurk() {
 			// var jsObject = JSON.parse(json);
 			// correct plurk api bugs
 			jsObject.plurks_users = jsObject.plurk_users;
-			// console.log(json)
+			// //console.log(json)
 			ShowNewPlurk(jsObject);
-			console.log('JetPlurk Load More: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
+			//console.log('JetPlurk Load More: NewOffset ' + NewOffset + ' OldOffset ' + OldOffset + ' ReadOffset ' + ReadOffset);
 		},                                
 		function(xhr, textStatus, errorThrown) {
 			// Login error
-			console.log('Login error: ' + xhr.status + ' ' + xhr.responseText);
+			//console.log('Login error: ' + xhr.status + ' ' + xhr.responseText);
 		}
 	);
 	
@@ -295,7 +295,7 @@ function ShowNewPlurk(jsObject) {
 			content += "<responseNum>" + response_count + "</responseNum>";
 		}
 		content += "</span></msg>";
-		// console.log('read ' + read + ' response_count ' + response_count + ' responses_seen ' + responses_seen + ' ' + content);
+		// //console.log('read ' + read + ' response_count ' + response_count + ' responses_seen ' + responses_seen + ' ' + content);
 		
 		sliderObj.find("msgs").append(content);
 		OldOffset = Date.parse(postedtime); // Remember oldest loaded plurk time
@@ -307,7 +307,7 @@ function ShowNewPlurk(jsObject) {
 				MsgHover($(this));
 			},
 			function() {
-				// console.log("unHOVER!");
+				// //console.log("unHOVER!");
 			}
 		).click(function(event) {
 			// Add click event listener on each msg
@@ -407,7 +407,7 @@ function MsgHover(hoverMsg) {
 	var selectPlurkID = parseInt(hoverMsg.attr("id"));
 	var selectPlurkRead = hoverMsg.attr("class");
 	var selectPlurkTimestamp = hoverMsg.attr("postime");
-	// console.log('Hover: ' + selectPlurkID + ' Read [' + selectPlurkRead + '] Plurk time: ' + selectPlurkTimestamp + Date.parse(selectPlurkTimestamp) + ' ReadOffset ' + ReadOffset);
+	// //console.log('Hover: ' + selectPlurkID + ' Read [' + selectPlurkRead + '] Plurk time: ' + selectPlurkTimestamp + Date.parse(selectPlurkTimestamp) + ' ReadOffset ' + ReadOffset);
 
 	if ((selectPlurkRead == 'unread') || (selectPlurkRead == 'unreadresponse')) {
 		// if unread or unreadresponse, set to read when hover
@@ -420,16 +420,16 @@ function MsgHover(hoverMsg) {
 				'note_position': true
 			}),
 			success: function(json) {
-				// console.log('Set read: ' + json);
+				// //console.log('Set read: ' + json);
 				$(hoverMsg).removeClass("unread").removeClass("unreadresponse");
 				if (Date.parse(selectPlurkTimestamp) > ReadOffset) {
 					ReadOffset = Date.parse(selectPlurkTimestamp);
 					myStorage.ReadOffset = ReadOffset;
-					// console.log('myStorage.ReadOffset update: ' + myStorage.ReadOffset);
+					// //console.log('myStorage.ReadOffset update: ' + myStorage.ReadOffset);
 				}
 			},
 			error: function(xhr, textStatus, errorThrown) {
-				console.log('Set read error: ' + xhr.status + ' ' + xhr.responseText);
+				//console.log('Set read error: ' + xhr.status + ' ' + xhr.responseText);
 			}
 		});
 	}
@@ -439,7 +439,7 @@ function MsgClick(clickMsg){
 	// Called from ShowNewPlurk(jsObject)
 	var selectPlurkID = parseInt(clickMsg.attr("id"));
 	var selectPlurkResponseNum = clickMsg.find("responseNum").text();
-	// console.log('Click: ' + selectPlurkID + ' responseNum ' + selectPlurkResponseNum);
+	// //console.log('Click: ' + selectPlurkID + ' responseNum ' + selectPlurkResponseNum);
 
 	// If click msg has not showing response form, showing now
 	if ($(clickMsg).find("responses").length <= 0) {
@@ -496,7 +496,7 @@ function MsgShowResponse(clickMsg, selectPlurkID) {
 			'from_response': 0
 		}),
 		success: function(json) {
-			// console.log('Get response: ' + json);
+			// //console.log('Get response: ' + json);
 			var jsObject = JSON.parse(json);
 
 			// Display each response
@@ -534,7 +534,7 @@ function MsgShowResponse(clickMsg, selectPlurkID) {
 				}
 				content += transContent(jsObject.responses[i].content);
 				content += " <span class='meta'><timestr>" + timestr + "</timestr></span></response>";
-				// console.log(content);
+				// //console.log(content);
 				$(clickMsg).find("form#responseform").before(content);
 
 				// Re someone
@@ -551,10 +551,10 @@ function MsgShowResponse(clickMsg, selectPlurkID) {
 			$(clickMsg).find('response').css("font-size",set.fontsize/10.5 +"em");
 			$(clickMsg).find('response').css("line-height",set.fontsize/10.5 * 1.1 +"em");
 			*/
-			// console.log($(clickMsg).html());
+			// //console.log($(clickMsg).html());
 		},
 		error: function(xhr, textStatus, errorThrown) {
-			console.log('Get response error: ' + xhr.status + ' ' + xhr.responseText);
+			//console.log('Get response error: ' + xhr.status + ' ' + xhr.responseText);
 		}
 	});
 }
@@ -572,7 +572,7 @@ function SubmitResponse(clickMsg, selectPlurkID, response_txt) {
 			'qualifier': ':'
 		}),
 		success: function(json) {
-			// console.log('Responsed: ' + json);
+			// //console.log('Responsed: ' + json);
 			// Display new response
 
 			var reObject = JSON.parse(json);
@@ -593,7 +593,7 @@ function SubmitResponse(clickMsg, selectPlurkID, response_txt) {
 				content += "[" + qualifier + "] ";
 			}
 			content += reObject.content + " <span class='meta'><timestr>" + timestr + "</timestr></span></response>";
-			// console.log(content);
+			// //console.log(content);
 			$(clickMsg).find("form#responseform").before(content);
 			$(clickMsg).find("form#responseform").get(0).reset();
 			$(clickMsg).find("textarea.txtarea").trigger("keypress");
