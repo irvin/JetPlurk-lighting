@@ -3,5 +3,5 @@ jetpack.slideBar.append({
 	icon: "http://www.plurk.com/favicon.ico",
 	width: 300,
 	persist: true,
-	url: "file:///Users/Irvin/Sites/Coscup-lighting/index.html"
+	url: "file:///＊請修改指向本地目錄＊/Coscup-lighting/index.html"
 });

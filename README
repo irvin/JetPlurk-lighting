@@ -1,1 +1,20 @@
-For JetPlurk lighting talk live demo at Coscup 2010
+/*
+ * JetPlurk Lighting  http://jetplurk.poslab.info
+ * Positronic Lab - Irvin & twolights
+ * CC: by-nc-sa 3.0 TW, http://creativecommons.org/licenses/by-nc-sa/3.0/tw/
+ * Developing with the help from MozTW community. http://moztw.org
+ *
+ * Lighting talk live demo code at Coscup 2010
+ */
+
+Got your own plurk API key at http://www.plurk.com/API and fill into PlurkAPI.js and JetPlurk_lighting.js first.
+
+For phoneGap usage, put index.html JetPlurk_lighting.js jquery.js json2.js & PlurkAPI.js inside www directory.
+
+For Firefox Jetpack Prototype experiment, install firebug first, then install through Jetpack_Prototype_installer.html. This version still had the XHR problem not yet resolve, thus you will get "jsObject is null" error, and won't work properly.
+
+Daily usage with Firefox JetPack Prototype, please try http://jetplurk.poslab.info/alpha fro instead.
+
+If you want to try and helping migrating JetPlurk to Jetpack SDK framework, contact Irvin irvinfly(AT)gmail.com for commit privilege.
+
+Irvin 2010/8/17

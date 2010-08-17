@@ -1,5 +1,5 @@
 var API = {
-    key:    '8Sq7fQo7HA9MfGDiowDkMcRUYcsMk86t',
+    key:    '＊請於 http://www.plurk.com/API 取得 API Key 並填入＊',
     timeout: 10000,
     __cookie: null,
     __ajaxParams: null,

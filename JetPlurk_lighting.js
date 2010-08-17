@@ -1,7 +1,7 @@
 var loginStr = {
-	username: 'irvintest',
-	password: '1234',
-	api_key: '8Sq7fQo7HA9MfGDiowDkMcRUYcsMk86t'
+	username: '＊Plurk帳號＊',
+	password: '＊Plurk密碼＊',
+	api_key: '＊請於 http://www.plurk.com/API 取得 API Key 並填入＊'
 };
 
 var myStorage = {
